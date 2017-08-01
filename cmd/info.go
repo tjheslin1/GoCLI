@@ -11,30 +11,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/tjheslin1/GoCLI/cmd"
+	"github.com/spf13/cobra"
 )
 
-var version = "1.0"
+// NewInfoCmd creates the info command
+func NewInfoCmd() *cobra.Command {
+	infoCmd := &cobra.Command{
+		Use:   "info",
+		Short: "A brief description of info",
+		Long: `A longer description of info that spans multiple lines and likely contains examples
+	and usage of using your command. For example:
 
-func main() {
-	rootCmd, err := cmd.NewRootCmd(version)
-	check(err)
-
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	Cobra is a CLI library for Go that empowers applications.
+	This application is a tool to generate the needed files
+	to quickly create a Cobra application.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("info called")
+		},
 	}
-}
 
-func check(err error) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	// infoCmd.Flags()....
+
+	return infoCmd
 }

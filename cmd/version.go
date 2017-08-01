@@ -11,30 +11,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/tjheslin1/GoCLI/cmd"
+	"github.com/spf13/cobra"
 )
 
-var version = "1.0"
-
-func main() {
-	rootCmd, err := cmd.NewRootCmd(version)
-	check(err)
-
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+// NewVersionCmd creates the version command
+func NewVersionCmd(version string) *cobra.Command {
+	versionCmd := &cobra.Command{
+		Use:   "version",
+		Short: "Displays the version of this CLI tool",
+		Long:  `Displays the version of this CLI tool`,
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("CLI tool's version is ", version)
+		},
 	}
-}
 
-func check(err error) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	// versionCmd.Flags()...
+
+	return versionCmd
 }
